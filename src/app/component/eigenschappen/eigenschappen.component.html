@@ -1,0 +1,39 @@
+<bldc-grid fluid="true">
+  <bldc-grid-row containerColumns="12">
+    <bldc-grid-column col="4" padding="false" lg="3" md="2" sm="1" xs="1"></bldc-grid-column>
+    <bldc-grid-column col="4" padding="false" lg="6" md="8" sm="10" xs="10">
+      <div>
+        <app-notification></app-notification>
+        <bldc-heading level="1">
+          Overzicht van eigenschappen
+        </bldc-heading>
+        <div style="margin-bottom: 2rem">
+          <bldc-button
+            type="secondary"
+            elemTitle="Nieuwe Eigenschap toevoegen"
+            elemText="Nieuwe Eigenschap toevoegen"
+            [bldcRouterLink]="'eigenschappen/nieuw'"
+          ></bldc-button>
+        </div>
+        <div class="loader" *ngIf="eigenschappen == null"></div>
+        <bldc-card>
+          <bldc-paragraph>
+            Hieronder vindt u een lijst met alle beschikbare eigenschappen en de bijbehorende configuratie.
+          </bldc-paragraph>
+          <div *ngIf="eigenschappen != null">
+            <bldc-link *ngFor="let eigenschap of eigenschappen._embedded.eigenschapDTOList" [bldcRouterLink]="'/eigenschappen/' + eigenschap.uuid"
+                       [elemText]="eigenschap.naam"
+                       [elemTitle]="eigenschap.naam" type="list"></bldc-link>
+          </div>
+          <bldc-buttonbar *ngIf="eigenschappen !== null">
+            <bldc-button slot="left" type="minimal" (bldcClick)="previous()" elem-title="Vorige" icon="vorige"
+                         *ngIf="page !== 0 && eigenschappen.page.totalPages > 1" icon-pos="left"></bldc-button>
+            <bldc-button slot="right" type="primary" (bldcClick)="next()" elem-title="Volgende" icon="volgende"
+                         *ngIf="page !== eigenschappen.page.totalPages-1" icon-pos="left" iconPos="right"></bldc-button>
+          </bldc-buttonbar>
+        </bldc-card>
+      </div>
+    </bldc-grid-column>
+    <bldc-grid-column col="4" padding="false" lg="3" md="2" sm="1" xs="1"></bldc-grid-column>
+  </bldc-grid-row>
+</bldc-grid>

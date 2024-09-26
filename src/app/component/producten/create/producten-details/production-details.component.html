@@ -1,0 +1,43 @@
+<div class="title-header">
+  <bldc-heading level="1">
+    Product details
+  </bldc-heading>
+</div>
+
+<bldc-card type="content">
+  <div *ngIf="product">
+  <form [formGroup]="productForm">
+    <bldc-input [validators]="['minlen|1','maxlen|20']" inputType="string"  formControlName="naam"
+                [(ngModel)]="product.naam">
+      <span slot="label">Naam</span>
+    </bldc-input>
+    <bldc-input [validators]="['minlen|1','maxlen|5']"  inputType="string" name="code" formControlName="code"
+      [(ngModel)]="product.code" elemId="code-input">
+      <span slot="label">Code</span>
+    </bldc-input>
+    <bldc-input elemId="omschrijving-input" [validators]="['minlen|1','maxlen|255']"  inputType="string" name="omschrijving" formControlName="omschrijving"
+                [(ngModel)]="product.omschrijving" elemId="omschrijving-input">
+      <span slot="label">Omschrijving</span>
+    </bldc-input>
+    <bldc-input [validators]="['maxlen|255']"  inputType="string" name="beoogdResultaat" formControlName="beoogdResultaat"
+                [(ngModel)]="product.beoogdResultaat" elemId="beoogdResultaat-input" >
+      <span slot="label">Beoogd resultaat</span>
+    </bldc-input>
+    <bldc-input [validators]="['maxlen|1000']"  inputType="string" name="toelichting" formControlName="toelichting"
+                [(ngModel)]="product.toelichting" elemId="toelichting-input">
+      <span slot="label">Toelichting</span>
+    </bldc-input>
+      <bldc-date-input (bldcValueChange)="onChange($event,'einddatumGeldigheid')" date-picker="true" input-type="string" readonly="true" formControlName="einddatumGeldigheid"   [(ngModel)]="product.einddatumGeldigheid">
+        <span slot="label">Einddatum Geldigheid</span>
+      </bldc-date-input>
+    <bldc-date-input  date-picker="true"  readonly="true" input-type="string" (bldcValueChange)="onChange($event,'wijzigingsdatum')"  formControlName="wijzigingsdatum"  [(ngModel)]="product.wijzigingsdatum">
+      <span slot="label">Wijzigingsdatum</span>
+    </bldc-date-input>
+  </form>
+  </div>
+</bldc-card>
+<bldc-buttonbar *ngIf="getUuid() === 'nieuw'">
+  <bldc-button slot="right" type="primary" [disabled]="productForm.invalid" (bldcClick)="save()" elem-title="Maak aan en volgende"
+               icon="volgende"
+               icon-pos="left" iconPos="right"></bldc-button>
+</bldc-buttonbar>

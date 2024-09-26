@@ -1,0 +1,81 @@
+<bldc-layout>
+  <bldc-header slot="header">
+    <bldc-logo slot="logo"></bldc-logo>
+  </bldc-header>
+  <bldc-navigation slot="navigation" >
+    <bldc-navigation-menu>
+      <bldc-navigation-item bldcRouterLink="/home" [active]="path== 'home'">
+        <bldc-icon icon="home"></bldc-icon>
+        Catalogus
+      </bldc-navigation-item>
+
+      <!-- Uitgelogd menu voor zaaktypes -->
+      <bldc-navigation-item *ngIf="!authService.isLoggedIn()" bldcRouterLink="/zaaktypes"
+                            [active]="path != null && path.startsWith('zaaktypes')">
+        Zaaktypes
+      </bldc-navigation-item>
+
+      <!-- Ingelogd menu voor zaaktypes -->
+      <bldc-navigation-dropdown *ngIf="authService.isLoggedIn()" elemTitle="Zaaktypes">
+        <bldc-navigation-item bldcRouterLink="/zaaktypes" [active]="path != null && path.startsWith('zaaktypes')">
+          Overzicht
+        </bldc-navigation-item>
+        <bldc-navigation-item
+          *ngIf="authService.hasGroup(RoleGroupsModel.INRICHTER) || authService.hasGroup(RoleGroupsModel.VASTSTELLER)"
+          bldcRouterLink="/zaaktype-concepten" [active]="path != null && path.startsWith('zaaktype-concepten')">Concepten
+        </bldc-navigation-item>
+        <bldc-navigation-item *ngIf="authService.isLoggedIn() && authService.hasGroup(RoleGroupsModel.INRICHTER)"
+                              bldcRouterLink="/bijzondere-bepalingen" [active]="path != null && path.startsWith('bijzondere-bepalingen')">
+          Bijzondere Bepalingen
+        </bldc-navigation-item>
+      </bldc-navigation-dropdown>
+
+      <!-- Ingelogd menu voor behandelactiviteittypes -->
+      <bldc-navigation-dropdown *ngIf="authService.isLoggedIn()" elemTitle="Behandelactiviteittypes">
+        <bldc-navigation-item bldcRouterLink="/behandelactiviteittypes" [active]="path != null && path.startsWith('behandelactiviteittypes')">
+          Overzicht
+        </bldc-navigation-item>
+        <bldc-navigation-item
+          *ngIf="authService.hasGroup(RoleGroupsModel.INRICHTER) || authService.hasGroup(RoleGroupsModel.VASTSTELLER)"
+          bldcRouterLink="/behandelactiviteittype-concepten" [active]="path != null && path.startsWith('behandelactiviteittype-concepten')">
+          Concepten
+        </bldc-navigation-item>
+        <bldc-navigation-item *ngIf="authService.isLoggedIn() && authService.hasGroup(RoleGroupsModel.INRICHTER)"
+                              bldcRouterLink="/eigenschappen" [active]="path != null && path.startsWith('eigenschappen')">
+          Eigenschappen
+        </bldc-navigation-item>
+      </bldc-navigation-dropdown>
+      <bldc-navigation-item *ngIf="authService.isLoggedIn()" bldcRouterLink="/referentielijsten"
+                            [active]="path != null && path.startsWith('referentielijsten')">
+        Referentielijsten
+      </bldc-navigation-item>
+      <bldc-navigation-item *ngIf="authService.isLoggedIn()" bldcRouterLink="/producten"
+                            [active]="path != null && path.startsWith('producten')">
+        Producten
+      </bldc-navigation-item>
+    </bldc-navigation-menu>
+
+    <!-- Uitgelogd menu voor behandelactiviteittypes -->
+    <bldc-navigation-item *ngIf="!authService.isLoggedIn()" bldcRouterLink="/behandelactiviteittypes"
+                          [active]="path != null && path.startsWith('behandelactiviteittypes')">
+      Behandelactiviteittypes
+    </bldc-navigation-item>
+    <bldc-navigation-item *ngIf="!authService.isLoggedIn()" bldcRouterLink="/referentielijsten"
+                          [active]="path != null && path.startsWith('referentielijsten')">
+      Referentielijsten
+    </bldc-navigation-item>
+
+    <bldc-navigation-menu type="userMenu">
+      <bldc-navigation-item *ngIf="authService.isLoggedIn()" (click)="logout()" [active]="path == 'login'">
+        <bldc-icon icon="gebruiker"></bldc-icon>
+        Uitloggen
+      </bldc-navigation-item>
+      <bldc-navigation-item *ngIf="authService.isLoggedOut()" bldcRouterLink="/login" [active]="path == 'login'">
+        <bldc-icon icon="gebruiker"></bldc-icon>
+        Inloggen
+      </bldc-navigation-item>
+    </bldc-navigation-menu>
+  </bldc-navigation>
+  <router-outlet></router-outlet>
+  <bldc-footer slot="footer"></bldc-footer>
+</bldc-layout>

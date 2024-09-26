@@ -1,0 +1,24 @@
+<bldc-grid fluid="true">
+  <bldc-grid-row containerColumns="12">
+    <bldc-grid-column col="2" padding="false" lg="2" md="1" sm="0.5" xs="0.5"></bldc-grid-column>
+    <bldc-grid-column col="8" padding="false" lg="8" md="10" sm="11" xs="11">
+      <app-notification></app-notification>
+      <div *ngIf="loading" class="loader"></div>
+      <div *ngIf="!loading">
+        <bldc-task-step-indicator
+          [steps]="steps"
+          visible="true"
+          [current]="currentStep"
+        ></bldc-task-step-indicator>
+        <router-outlet></router-outlet>
+        <bldc-buttonbar *ngIf="uuid !== 'nieuw'">
+          <bldc-button slot="left" type="minimal" (bldcClick)="previousStep()" elem-title="Vorige" icon="vorige"
+                       *ngIf="currentStep !== 1" icon-pos="left"></bldc-button>
+          <bldc-button slot="right" type="primary" (bldcClick)="nextStep()" elem-title="Volgende" icon="volgende"
+                       *ngIf="currentStep !== steps.length" icon-pos="left" iconPos="right"></bldc-button>
+        </bldc-buttonbar>
+      </div>
+    </bldc-grid-column>
+    <bldc-grid-column col="2" padding="false" lg="2" md="1" sm="0.5" xs="0.5"></bldc-grid-column>
+  </bldc-grid-row>
+</bldc-grid>

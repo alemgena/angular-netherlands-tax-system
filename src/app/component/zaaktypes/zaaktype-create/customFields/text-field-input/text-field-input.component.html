@@ -1,0 +1,7 @@
+<div style="padding-bottom: 2rem">
+  <bldc-input *ngIf="field" [required]="field.required" [inputType]="field.inputType"
+              [(ngModel)]="value" (ngModelChange)="updateParent($event)" name="{{ field.name }}"
+              elemId="{{ formatInputId(field.name) }}">
+    <span slot="label">{{ field.name }}</span>
+  </bldc-input>
+</div>

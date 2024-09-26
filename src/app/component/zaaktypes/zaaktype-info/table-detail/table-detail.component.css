@@ -1,0 +1,40 @@
+table {
+  font-family: RObold, "Segoe UI", "Helvetica Neue", sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+tr .header {
+  border: 0;
+}
+
+td, th {
+  font-family: ROregular, "Segoe UI", "Helvetica Neue", sans-serif;
+  border-bottom: 1px solid #dddddd;
+  text-align: left;
+  padding: 1rem;
+}
+
+.break-all {
+  word-break: break-all;
+}
+
+.break-words {
+  word-break: break-word;
+}
+
+.row-selected {
+  background-color: rgb(221, 239, 248) !important;
+}
+
+.two-column-width {
+  width: 50%;
+}
+
+.three-column-width {
+  width: 33.33%;
+}
+
+.four-column-width {
+  width: 25%;
+}

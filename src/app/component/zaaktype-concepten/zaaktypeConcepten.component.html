@@ -1,0 +1,49 @@
+<bldc-grid fluid="true">
+  <bldc-grid-row containerColumns="12">
+    <bldc-grid-column col="4" padding="false" lg="3" md="2" sm="1" xs="1"></bldc-grid-column>
+    <bldc-grid-column col="4" padding="false" lg="6" md="8" sm="10" xs="10">
+      <div>
+        <app-notification></app-notification>
+        <bldc-heading level="1">
+          Overzicht van zaaktype concepten
+        </bldc-heading>
+        <div style="margin-bottom: 2rem" *ngIf="authService.hasGroup(RoleGroupsModel.INRICHTER)">
+          <bldc-button
+            type="secondary"
+            elemTitle="Nieuw zaaktype toevoegen"
+            elemText="Nieuw zaaktype toevoegen"
+            [bldcRouterLink]="'/zaaktype-concepten/nieuw/zaaktypedetails'"
+          ></bldc-button>
+        </div>
+        <bldc-card>
+          <bldc-paragraph>
+            Hieronder vindt u een lijst met alle huidige zaaktype concepten en de bijbehorende configuratie.
+          </bldc-paragraph>
+
+          <div *ngIf="zaaktypes != null">
+            <div *ngIf="authService.hasGroup(RoleGroupsModel.INRICHTER)">
+              <bldc-link *ngFor="let zaaktype of zaaktypes._embedded.zaaktypeomschrijvingen"
+                         [bldcRouterLink]="'/zaaktype-concepten/' + zaaktype.code + '/zaaktypedetails'"
+                         [elemText]="zaaktype.code + ' - ' + zaaktype.omschrijving"
+                         [elemTitle]="zaaktype.code + ' - ' + zaaktype.omschrijving" type="list"></bldc-link>
+            </div>
+            <div *ngIf="!authService.hasGroup(RoleGroupsModel.INRICHTER) && authService.hasGroup(RoleGroupsModel.VASTSTELLER)">
+              <bldc-link *ngFor="let zaaktype of zaaktypes._embedded.zaaktypeomschrijvingen"
+                         [bldcRouterLink]="'/zaaktype-vaststellen/' + zaaktype.code"
+                         [elemText]="zaaktype.code + ' - ' + zaaktype.omschrijving"
+                         [elemTitle]="zaaktype.code + ' - ' + zaaktype.omschrijving" type="list"></bldc-link>
+            </div>
+          </div>
+          <div class="loader" *ngIf="zaaktypes == null"></div>
+          <bldc-buttonbar *ngIf="zaaktypes !== null">
+            <bldc-button slot="left" type="minimal" (bldcClick)="previous()" elem-title="Vorige" icon="vorige"
+                         *ngIf="page !== 0 && zaaktypes.page.totalPages > 1" icon-pos="left"></bldc-button>
+            <bldc-button slot="right" type="primary" (bldcClick)="next()" elem-title="Volgende" icon="volgende"
+                         *ngIf="page !== zaaktypes.page.totalPages-1" icon-pos="left" iconPos="right"></bldc-button>
+          </bldc-buttonbar>
+        </bldc-card>
+      </div>
+    </bldc-grid-column>
+    <bldc-grid-column col="4" padding="false" lg="3" md="2" sm="1" xs="1"></bldc-grid-column>
+  </bldc-grid-row>
+</bldc-grid>

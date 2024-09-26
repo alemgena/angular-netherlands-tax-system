@@ -1,0 +1,42 @@
+<bldc-card id="detail-card" type="content" expandable="true" [expanded]="true">
+  <bldc-card-header slot="card-header">
+    <bldc-heading level="2">Product details</bldc-heading>
+  </bldc-card-header>
+
+  <div *ngIf="product">
+    <bldc-input id="naam" readonly="true" bldcValue="{{product.naam}}">
+      <span slot="label">Naam</span>
+    </bldc-input>
+    <bldc-input id="code" readonly="true" bldcValue="{{product.code}}">
+      <span slot="label">Code</span>
+    </bldc-input>
+    <bldc-input id="omschrijving" placeholder="" readonly="true" bldcValue="{{product?.omschrijving}}">
+      <span slot="label">Omschrijving</span>
+    </bldc-input>
+    <bldc-input id="toelichting" placeholder="" readonly="true" bldcValue="{{product?.toelichting}}">
+      <span slot="label">Toelichting</span>
+    </bldc-input>
+    <br>
+  </div>
+</bldc-card>
+<bldc-card id="variants" type="content" expandable="true">
+  <bldc-card-header slot="card-header">
+    <bldc-heading level="2">Varianten</bldc-heading>
+  </bldc-card-header>
+<table *ngIf="product" id="tableVariants" class="table zebra" aria-label="Zaken">
+  <thead>
+  <tr>
+    <th>Naam</th>
+    <th>Code</th>
+    <th>Omschrijving</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let pr of product.varianten">
+    <td class="row">{{pr.naam}}</td>
+    <td class="row">{{pr.code}}</td>
+    <td class="row">{{pr.omschrijving}}</td>
+  </tr>
+  </tbody>
+</table>
+</bldc-card>

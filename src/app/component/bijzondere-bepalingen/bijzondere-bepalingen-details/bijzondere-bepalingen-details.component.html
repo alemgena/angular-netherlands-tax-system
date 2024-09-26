@@ -1,0 +1,51 @@
+<bldc-grid fluid="true">
+  <bldc-grid-row containerColumns="12">
+    <bldc-grid-column col="2" padding="false" lg="2" md="1" sm="0.5" xs="0.5"></bldc-grid-column>
+    <bldc-grid-column col="8" padding="false" lg="8" md="10" sm="11" xs="11">
+      <bldc-heading level="1">
+        Bijzondere bepaling details
+      </bldc-heading>
+
+      <bldc-card type="content">
+        <div *ngIf="bijzondereBepalingType">
+          <form [formGroup]="bijzondereBepalingenForm">
+            <div style="padding-bottom: 2rem">
+              <bldc-select-box [data]="termijnTypeOptions" [(ngModel)]="bijzondereBepalingType.type"
+                               formControlName="type" elemId="type-input">
+                <span slot="label">Type</span>
+              </bldc-select-box>
+            </div>
+            <bldc-input inputType="text" [(ngModel)]="bijzondereBepalingType.reden" formControlName="reden"
+                        elemId="reden-input">
+              <span slot="label">Reden</span>
+            </bldc-input>
+            <div style="padding-bottom: 2rem">
+              <bldc-select-box [data]="aantalTermijnenOptions" [(ngModel)]="bijzondereBepalingType.aantal"
+                               formControlName="aantal" elemId="aantal-input">
+                <span slot="label">Aantal</span>
+              </bldc-select-box>
+            </div>
+            <bldc-input inputType="number" numberUnit="dagen" [validators]="['minlen|0','maxlen|3','numbers']"
+                        [(ngModel)]="bijzondereBepalingType.eersteTermijn" formControlName="eersteTermijn"
+                        elemId="eersteTermijn-input">
+              <span slot="label">Eerste termijn</span>
+            </bldc-input>
+            <bldc-input inputType="number" numberUnit="dagen" [validators]="['minlen|0','maxlen|3','numbers']"
+                        [(ngModel)]="bijzondereBepalingType.opvolgendeTermijn" formControlName="opvolgendeTermijn"
+                        elemId="opvolgendeTermijn-input">
+              <span slot="label">Opvolgende termijn</span>
+            </bldc-input>
+
+          </form>
+        </div>
+      </bldc-card>
+
+      <bldc-buttonbar>
+        <bldc-button slot="right" type="primary" [disabled]="bijzondereBepalingenForm.invalid" (bldcClick)="save()"
+                     elem-title="Bewaar" icon="opslaan"
+                     icon-pos="left" iconPos="right"></bldc-button>
+      </bldc-buttonbar>
+    </bldc-grid-column>
+    <bldc-grid-column col="2" padding="false" lg="2" md="1" sm="0.5" xs="0.5"></bldc-grid-column>
+  </bldc-grid-row>
+</bldc-grid>

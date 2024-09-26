@@ -1,0 +1,9 @@
+<bldc-notification *ngFor="let notification of notifications; index as i"
+                   [type]="notificationTypes[notification.type]"
+                   [elemTitle]="notification.title"
+                   [closeBtn]="true"
+                   (bldcClose)="onCloseNotification(i)">
+  <bldc-paragraph [disableMargin]="true"
+  >{{notification.message}}
+  </bldc-paragraph>
+</bldc-notification>

@@ -1,0 +1,32 @@
+<bldc-grid fluid="true">
+  <bldc-grid-row containerColumns="12">
+    <bldc-grid-column col="4" padding="false" lg="3" md="2" sm="1" xs="1"></bldc-grid-column>
+    <bldc-grid-column col="4" padding="false" lg="6" md="8" sm="10" xs="10">
+      <div>
+        <app-notification></app-notification>
+        <bldc-heading level="1">
+          Overzicht van bijzondere bepalingen
+        </bldc-heading>
+        <div style="margin-bottom: 2rem">
+          <bldc-button
+            type="secondary"
+            elemTitle="Nieuwe bijzondere bepaling toevoegen"
+            elemText="Nieuwe bijzondere bepaling toevoegen"
+            [bldcRouterLink]="'bijzondere-bepalingen/nieuw'"
+          ></bldc-button>
+        </div>
+        <bldc-card>
+          <bldc-paragraph>
+            Hieronder vindt u een lijst met alle beschikbare bijzondere bepalingen en de bijbehorende configuratie.
+          </bldc-paragraph>
+          <div *ngIf="bijzondereBepalingen != null">
+            <bldc-link *ngFor="let bijzondereBepaling of bijzondereBepalingen" [bldcRouterLink]="'/bijzondere-bepalingen/' + bijzondereBepaling.uuid"
+                       [elemText]="bijzondereBepaling.type + ' met reden ' + bijzondereBepaling.reden" type="list"></bldc-link>
+          </div>
+          <div class="loader" *ngIf="bijzondereBepalingen == null"></div>
+        </bldc-card>
+      </div>
+    </bldc-grid-column>
+    <bldc-grid-column col="4" padding="false" lg="3" md="2" sm="1" xs="1"></bldc-grid-column>
+  </bldc-grid-row>
+</bldc-grid>

@@ -1,0 +1,19 @@
+<bldc-grid fluid="true">
+  <bldc-grid-row containerColumns="12">
+    <bldc-grid-column col="2" padding="false" lg="2" md="1" sm="0.5" xs="0.5"></bldc-grid-column>
+    <bldc-grid-column col="8" padding="false" lg="8" md="10" sm="11" xs="11">
+      <app-notification></app-notification>
+      <bldc-button id="prev-button" type="minimal" (bldcClick)="goBack()" elem-title="terug naar overzicht" icon="vorige"
+                   icon-pos="left"></bldc-button>
+      <bldc-heading level="1" *ngIf="behandelactiviteittype">
+        Behandelactiviteteittype {{behandelactiviteittype.code}} - {{behandelactiviteittype.omschrijving}}
+      </bldc-heading>
+      <app-behandelactiviteittype-info [loading]="loading" [behandelactiviteittype]="behandelactiviteittype"></app-behandelactiviteittype-info>
+      <bldc-buttonbar>
+        <bldc-button slot="right" type="primary" (bldcClick)="vaststellen()" elem-title="Vaststellen" icon="verzend"
+                     iconPos="right"></bldc-button>
+      </bldc-buttonbar>
+    </bldc-grid-column>
+    <bldc-grid-column col="2" padding="false" lg="2" md="1" sm="0.5" xs="0.5"></bldc-grid-column>
+  </bldc-grid-row>
+</bldc-grid>

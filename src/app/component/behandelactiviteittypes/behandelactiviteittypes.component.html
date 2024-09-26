@@ -1,0 +1,32 @@
+<bldc-grid fluid="true">
+  <bldc-grid-row containerColumns="12">
+    <bldc-grid-column col="4" padding="false" lg="3" md="2" sm="1" xs="1"></bldc-grid-column>
+    <bldc-grid-column col="4" padding="false" lg="6" md="8" sm="10" xs="10">
+      <div>
+        <app-notification></app-notification>
+        <bldc-heading level="1">
+          Overzicht van behandelactiviteittypes
+        </bldc-heading>
+        <bldc-card>
+          <bldc-paragraph>
+            Hieronder vindt u een lijst met alle beschikbare behandelactiviteittypes en de bijbehorende configuratie.
+          </bldc-paragraph>
+          <div *ngIf="behandelactiviteittypes != null">
+            <bldc-link *ngFor="let behandelactiviteittype of behandelactiviteittypes._embedded.behandelactiviteittypeDTOList"
+                       [bldcRouterLink]="'/behandelactiviteittypes/' + behandelactiviteittype.uuid"
+                       [elemText]="behandelactiviteittype.code + ' - ' + behandelactiviteittype.omschrijving"
+                       [elemTitle]="behandelactiviteittype.code + ' - ' + behandelactiviteittype.omschrijving" type="list"></bldc-link>
+          </div>
+          <div class="loader" *ngIf="behandelactiviteittypes == null"></div>
+          <bldc-buttonbar *ngIf="behandelactiviteittypes !== null">
+            <bldc-button slot="left" type="minimal" (bldcClick)="previous()" elem-title="Vorige" icon="vorige"
+                         *ngIf="page !== 0 && behandelactiviteittypes.page.totalPages > 1" icon-pos="left"></bldc-button>
+            <bldc-button slot="right" type="primary" (bldcClick)="next()" elem-title="Volgende" icon="volgende"
+                         *ngIf="page !== behandelactiviteittypes.page.totalPages-1" icon-pos="left" iconPos="right"></bldc-button>
+          </bldc-buttonbar>
+        </bldc-card>
+      </div>
+    </bldc-grid-column>
+    <bldc-grid-column col="4" padding="false" lg="3" md="2" sm="1" xs="1"></bldc-grid-column>
+  </bldc-grid-row>
+</bldc-grid>

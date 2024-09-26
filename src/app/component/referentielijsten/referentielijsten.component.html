@@ -1,0 +1,27 @@
+<bldc-grid fluid="true">
+  <bldc-grid-row containerColumns="12">
+    <bldc-grid-column col="4" padding="false" lg="3" md="2" sm="1" xs="1"></bldc-grid-column>
+    <bldc-grid-column col="4" padding="false" lg="6" md="8" sm="10" xs="10">
+      <div>
+        <app-notification></app-notification>
+        <div *ngIf="loading" class="loader"></div>
+        <bldc-heading level="1">
+          Overzicht van referentielijsten
+        </bldc-heading>
+        <div *ngIf="!loading">
+        <bldc-card >
+          <bldc-paragraph>
+            Hieronder vindt u een lijst met beschikbare referentielijsten
+          </bldc-paragraph>
+          <div *ngIf="referentielijsten != null">
+            <bldc-link *ngFor="let element of referentielijsten"
+                       [elemText]="element.naam"
+                       [elemTitle]="element.naam" type="list"></bldc-link>
+          </div>
+        </bldc-card>
+        </div>
+      </div>
+    </bldc-grid-column>
+    <bldc-grid-column col="4" padding="false" lg="3" md="2" sm="1" xs="1"></bldc-grid-column>
+  </bldc-grid-row>
+</bldc-grid>

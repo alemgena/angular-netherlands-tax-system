@@ -1,0 +1,60 @@
+<div class="title-header">
+  <bldc-heading level="1">
+    Zaaktypedetails
+  </bldc-heading>
+</div>
+
+<bldc-card type="content">
+  <div *ngIf="zaaktype && referentietypeOptions">
+    <form [formGroup]="zaakTypeForm">
+      <div style="padding-bottom: 2rem">
+        <bldc-select-box (bldcValueChange)="onReferentiezaaktypeChanged()" formControlName="referentietypeItemUuid"
+                         [data]="referentietypeOptions"
+                         [(ngModel)]="zaaktype.referentietypeItemUuid"
+                         elemId="referentieZaaktype-input">
+          <span slot="label">Referentie zaaktype</span>
+        </bldc-select-box>
+      </div>
+      <bldc-input required="false" placeholder="Optioneel" formControlName="omschrijving"
+                  [(ngModel)]="zaaktype.omschrijving" (ngModelChange)="updateZaaktype()" elemId="omschrijving-input">
+        <span slot="label">Omschrijving</span>
+      </bldc-input>
+      <div style="padding-bottom: 2rem">
+        <bldc-select-box [data]="initiatieZaakOptions" [(ngModel)]="zaaktype.initiatie" formControlName="initiatie"
+                         (bldcValueChange)="updateZaaktype()" elemId="initiatie-input">
+          <span slot="label">Initiatie</span>
+        </bldc-select-box>
+      </div>
+      <div style="padding-bottom: 2rem">
+        <bldc-select-box [data]="vertrouwelijkheidOptions" [(ngModel)]="zaaktype.vertrouwelijkheidAanduiding"
+                         formControlName="vertrouwelijkheidAanduiding" (bldcValueChange)="updateZaaktype()"
+                         elemId="vertrouwelijkheid-input">
+          <span slot="label">Vertrouwelijkheid</span>
+        </bldc-select-box>
+      </div>
+      <bldc-checkbox-group name="group1" [(bldcValue)]="termijnMogelijkheden">
+        <span slot="legend">Bijzondere bepalingen</span>
+        <bldc-checkbox (bldcValueChange)="onTermijnMogelijkhedenChange($event, 'opschortingMogelijk')"
+                       value="opschortingMogelijk" elemId="opschortenMogelijk-input">Opschorten mogelijk
+        </bldc-checkbox>
+        <bldc-checkbox (bldcValueChange)="onTermijnMogelijkhedenChange($event, 'verdagingMogelijk')"
+                       value="verdagingMogelijk" elemId="verdagenMogelijk-input">Verdagen mogelijk
+        </bldc-checkbox>
+        <bldc-checkbox (bldcValueChange)="onTermijnMogelijkhedenChange($event, 'verlengingMogelijk')"
+                       value="verlengingMogelijk" elemId="verlengenMogelijk-input">Verlengen mogelijk
+        </bldc-checkbox>
+      </bldc-checkbox-group>
+      <bldc-input required="true" inputType="number" numberUnit="dagen" [validators]="['minlen|0','maxlen|3','numbers']"
+                  [(ngModel)]="zaaktype.beslistermijn.doorlooptijd" formControlName="doorlooptijd"
+                  (ngModelChange)="updateZaaktype()" elemId="doorlooptijdBehandeling-input">
+        <span slot="label">Doorlooptijd behandeling</span>
+      </bldc-input>
+    </form>
+  </div>
+</bldc-card>
+
+<bldc-buttonbar *ngIf="getCode() === 'nieuw'">
+  <bldc-button slot="right" type="primary" [disabled]="zaakTypeForm.invalid" (bldcClick)="save()"
+               elem-title="Maak aan en volgende" icon="volgende"
+               icon-pos="left" iconPos="right"></bldc-button>
+</bldc-buttonbar>

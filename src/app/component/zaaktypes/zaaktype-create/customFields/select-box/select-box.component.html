@@ -1,0 +1,7 @@
+<div style="padding-bottom: 2rem">
+  <bldc-select-box *ngIf="field" [name]="field.name + field.fieldType" [data]="selectBoxOptions"
+                   (bldcValueChange)="onUpdateValue()" [(ngModel)]="value"
+                   elemId="{{ formatInputId(field.name) }}-input">
+    <span slot="label">{{ field.name }}</span>
+  </bldc-select-box>
+</div>

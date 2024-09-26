@@ -1,0 +1,31 @@
+<bldc-card id="{{ title }}" type="content" expandable="true">
+  <bldc-card-header slot="card-header">
+    <bldc-heading level="2">{{ title }}</bldc-heading>
+    <div slot="end">
+      <bldc-notification
+        *ngIf="title=='Behandelactiviteittypes' && isConcept()"
+        type="warning"
+        compact="true"
+        elem-title="Bevat Concepten"
+      ></bldc-notification>
+    </div>
+  </bldc-card-header>
+
+  <table id="table {{ title }}" class="table zebra" aria-label="Zaken" >
+    <tr class="">
+      <th id="column {{ title }} {{ column.name }}" class="{{numberOfColumns}}" *ngFor="let column of columns">{{ column.name }}</th>
+      <th *ngIf="links" id="column {{ title }} link"></th>
+    </tr>
+    <tr *ngFor="let object of listOfObjects" [routerLink]="object.routerLink">
+      <td *ngFor="let column of columns">
+        {{ object[column.key] === true ? "Ja": object[column.key] === false ? "Nee": (object[column.key] === "" || object[column.key] === null) ? "geen waarde" : object[column.key] }}
+      </td>
+      <td *ngIf="title=='Behandelactiviteittypes'" style="color: #FFA500">{{object.versiedatum?"":"CONCEPT"}}</td>
+      <td *ngIf="object.routerLink">
+        <!-- We put an empty iconPos="" here to override bolts default behaviour. -->
+        <bldc-button  icon="extern" size="small" type="minimal" iconPos="" [bldcRouterLink]="object.routerLink"></bldc-button>
+      </td>
+    </tr>
+  </table>
+
+</bldc-card>

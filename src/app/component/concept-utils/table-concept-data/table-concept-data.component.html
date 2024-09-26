@@ -1,0 +1,45 @@
+<div class="title-header">
+  <bldc-heading level="1">
+    {{ title }}
+  </bldc-heading>
+
+  <bldc-button class="button" (bldcClick)="showModal()" type="primary" elem-title="Toevoegen"></bldc-button>
+
+  <ng-container *ngIf="reset | async">
+    <app-table-concept-add-modal [title]="title" [stepService]="stepService"
+                                 [state]="modalStates"></app-table-concept-add-modal>
+  </ng-container>
+</div>
+<bldc-modal
+  id="modal1"
+  visible="{{deleteModalOpen}}"
+  dismissible="true"
+  close-on-escape="true"
+  header="Item verwijderen"
+  buttons='[{"type":"secondary","label":"Annuleren", "id":"2", "event":"close"}, {"type":"primary","label":"Verwijder", "id":"1", "event":"confirm"}]'
+  modal-id="exampleModal1"
+  (bldcModalClose)="onClose()"
+  (bldcModalConfirm)="onConfirm()"
+>
+  <bldc-paragraph>Weet u zeker dat u dit item wilt verwijderen?</bldc-paragraph>
+</bldc-modal>
+<table id="table {{ title }}" class="table zebra" aria-label="Zaken">
+  <tr class="">
+    <th id="column {{ title }} {{ column.name }}" class="{{numberOfColumns}}"
+        *ngFor="let column of columns">{{ column.name }}</th>
+    <th *ngIf="checkRoute"></th>
+  </tr>
+  <tr *ngFor="let model of getListOfObjects()">
+    <td class="row" *ngFor="let column of columns;">
+      {{ model[column.key] === true ? "Ja" : model[column.key] === false ? "Nee" : (model[column.key] === "" || model[column.key] === null) ? "geen waarde" : model[column.key] }}
+    </td>
+    <td *ngIf="checkRoute">
+      <bldc-icon style="cursor: pointer; margin-right: 10px" (click)="openModal(model.uuid)" size="25" color="#01689b"
+                 icon="wis"></bldc-icon>
+    </td>
+  </tr>
+</table>
+<div class="container div">
+  <p *ngIf="!getListOfObjects() || getListOfObjects().length === 0" class="no-data">Er zijn nog geen <b>{{ title }}</b>
+    toegevoegd. Voeg een of meerdere {{ title }} toe.</p>
+</div>

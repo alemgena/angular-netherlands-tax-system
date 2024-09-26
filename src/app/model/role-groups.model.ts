@@ -1,0 +1,4 @@
+export enum RoleGroupsModel {
+    INRICHTER = "AUG_ZTC_INRICHTER",
+    VASTSTELLER = "AUG_ZTC_VASTSTELLER"
+}

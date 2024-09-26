@@ -1,0 +1,60 @@
+<bldc-card id="detail-card" type="content" expandable="true" [expanded]="true">
+  <bldc-card-header slot="card-header">
+    <bldc-heading level="2">Zaaktypedetails</bldc-heading>
+  </bldc-card-header>
+
+  <div *ngIf="zaaktype">
+    <bldc-input id="referentietype" readonly="true" bldcValue="{{zaaktype?.referentielijstomschrijving}}">
+      <span slot="label">Referentie zaaktype</span>
+    </bldc-input>
+    <bldc-input id="initiatie" placeholder="" readonly="true" bldcValue="{{zaaktype?.initiatie}}">
+      <span slot="label">Initiatie</span>
+    </bldc-input>
+    <bldc-input id="doorlooptijd" placeholder="" readonly="true" bldcValue="{{zaaktype?.beslistermijn?.doorlooptijd}}">
+      <span slot="label">Doorlooptijd behandeling</span>
+    </bldc-input>
+    <bldc-checkbox-group name="group1" readonly="true"
+                         [bldcValue]="[zaaktype?.beslistermijn?.mogelijkheden?.opschortingMogelijk ? 'cb1' : '', zaaktype?.beslistermijn?.mogelijkheden?.verdagingMogelijk ? 'cb2' : '', zaaktype?.beslistermijn?.mogelijkheden?.verlengingMogelijk  ? 'cb3' : '']">
+      <span slot="legend">Bijzondere bepalingen</span>
+      <bldc-checkbox value="cb1">Opschorten mogelijk</bldc-checkbox>
+      <bldc-checkbox value="cb2">Verdagen mogelijk</bldc-checkbox>
+      <bldc-checkbox value="cb3">Verlengen mogelijk</bldc-checkbox>
+    </bldc-checkbox-group>
+    <bldc-input id="vertrouwelijkheidAanduiding" readonly="true" bldcValue="{{zaaktype?.vertrouwelijkheidAanduiding}}">
+      <span slot="label">Vertrouwelijkheid</span>
+    </bldc-input>
+    <bldc-paragraph id="Begin geldigheid" size="m" disableMargin="true"><b>Begin geldigheid</b></bldc-paragraph>
+    <bldc-paragraph id="Begin geldigheid value"
+                    size="s">{{zaaktype?.begindatumGeldigheid ?? "Onbekend"}}</bldc-paragraph>
+    <br>
+    <bldc-paragraph id="Versie datum" size="m" disableMargin="true"><b>Versie datum</b></bldc-paragraph>
+    <bldc-paragraph id="Versie datum value" size="s">{{zaaktype?.versiedatum ?? "Onbekend"}} </bldc-paragraph>
+    <br>
+    <bldc-paragraph id="Einde geldigheid " size="m" disableMargin="true"><b>Einde geldigheid</b></bldc-paragraph>
+    <bldc-paragraph id="Einde geldigheid value"
+                    size="s">{{zaaktype?.einddatumGeldigheid ?? "Onbekend"}}</bldc-paragraph>
+
+  </div>
+</bldc-card>
+
+<!--      Expandable card section    -->
+<app-table-detail [title]="'Zaaktypedetails - Bijzondere bepalingen'" [listOfObjects]="zaaktype?.beslistermijn.bijzondereBepalingen"
+                  [columns]="bijzondereBepalingKolommen" numberOfColumns="three-column-width"></app-table-detail>
+<app-table-detail [title]="'Informatieobjecttypes'" [listOfObjects]="zaaktype?.informatieobjecttypes"
+                  [columns]="informatieobjectKolommen" numberOfColumns="three-column-width"></app-table-detail>
+<app-table-detail [title]="'Aanleidingtypes'" [listOfObjects]="zaaktype?.aanleidingtypes" [columns]="aanLeidingKolommen"
+                  numberOfColumns="one-column-width"></app-table-detail>
+<app-table-detail [title]="'Statustypes'" [listOfObjects]="zaaktype?.statustypes" [columns]="statusKolommen"
+                  numberOfColumns="four-column-width"></app-table-detail>
+<app-table-detail [title]="'Roltypes'" [listOfObjects]="zaaktype?.roltypes" [columns]="rolkolommen"
+                  numberOfColumns="two-column-width"></app-table-detail>
+<app-table-detail [title]="'Resultaattypes'" [listOfObjects]="zaaktype?.resultaattypes" [columns]="resultaatKolommen"
+                  numberOfColumns="one-column-width"></app-table-detail>
+<app-table-detail *ngIf="this.zaaktype" [title]="'Behandelactiviteittypes'" [listOfObjects]="zaaktype?.behandelactiviteittypes"
+                  [columns]="behandelactiviteitenKolommen"
+                  [links]="behandelactiveitenLinks"
+                  numberOfColumns="three-column-width"></app-table-detail>
+<app-table-detail [title]="'Beschikkingtypes'" [listOfObjects]="zaaktype?.beschikkingtypes"
+                  [columns]="beschikkingenKolommen" numberOfColumns="one-column-width"></app-table-detail>
+<app-table-detail [title]="'Gerelateerde zaaktypes'" [listOfObjects]="zaaktype?.gerelateerdeZaaktypes"
+                  [columns]="gerelateerdeZaakKolommen" numberOfColumns="three-column-width"></app-table-detail>

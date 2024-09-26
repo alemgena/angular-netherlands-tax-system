@@ -1,0 +1,33 @@
+<bldc-modal
+  title="{{ title }}"
+  id="#modalId"
+  visible="{{ state }}"
+  dismissible="true"
+  close-on-escape="false"
+  header="{{ title }}"
+  buttons='[{"type":"secondary","label":"Afsluiten", "id":"2", "event":"close"}, {"type":"primary","label":"Toevoegen", "id":"1", "event":"confirm"}]'
+  modal-id="configureModal"
+  buttonHidden="{{ confirmHidden }}"
+  (bldcModalClose)="onClose()"
+  (bldcModalConfirm)="onConfirm()"
+>
+  <bldc-form>
+    <div *ngFor="let field of fields; let i = index" name="modal">
+      <app-select-box *ngIf="field.fieldType.includes('SelectBox')"
+                      [field]="field"
+                      [(value)]="model[modelKeys[i]]"
+                      (valueChange)="onValueChange($event)"
+                      [propertyName]="modelKeys[i]"
+                      [observableSelectBoxOptions]="field.selectBoxOptions"></app-select-box>
+      <app-checkbox *ngIf="field.fieldType.includes('CheckBox')"
+                    [field]="field"
+                    [propertyName]="modelKeys[i]"
+                    (valueChange)="updateArrayModel($event)"></app-checkbox>
+      <app-text-field-input *ngIf="field.fieldType.includes('Text')"
+                            [field]="field"
+                            [(value)]="model[modelKeys[i]]"
+                            (valueChange)="onValueChange($event)"
+                            [propertyName]="modelKeys[i]"></app-text-field-input>
+    </div>
+  </bldc-form>
+</bldc-modal>

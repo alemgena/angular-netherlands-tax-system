@@ -1,0 +1,77 @@
+table {
+  font-family: RObold, "Segoe UI", "Helvetica Neue", sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+tr .header {
+  border: 0;
+}
+
+td, th {
+  font-family: ROregular, "Segoe UI", "Helvetica Neue", sans-serif;
+  border-bottom: 1px solid #dddddd;
+  text-align: left;
+  padding: 1rem;
+  background-color: white;
+
+  padding-left: 40px;
+}
+
+.break-all {
+  word-break: break-all;
+}
+
+.break-words {
+  word-break: break-word;
+}
+
+.row-selected {
+  background-color: rgb(221, 239, 248) !important;
+}
+
+.column-2-width {
+  width: 50%;
+  padding-left: 40px;
+}
+
+.column-3-width {
+  width: 33.33%;
+  padding-left: 40px;
+}
+
+.column-4-width {
+  width: 25%;
+  padding-left: 40px;
+}
+
+.title-header {
+  position: relative;
+  padding: 30px;
+}
+
+.container {
+  position: relative;
+}
+
+.button {
+  position: absolute;
+  bottom: 30%;
+  right: 0;
+}
+
+.no-data {
+  padding: 50px;
+  text-align: center;
+}
+
+.container.div {
+  background-color: white;
+  font-family: ROregular, "Segoe UI", "Helvetica Neue", sans-serif;
+
+}
+
+td.row {
+  padding-left: 40px;
+}
+

@@ -1,0 +1,31 @@
+<bldc-card id="detail-card" type="content" expandable="true" [expanded]="true">
+  <bldc-card-header slot="card-header">
+    <bldc-heading level="2">Behandelactiviteittype details</bldc-heading>
+  </bldc-card-header>
+
+  <div *ngIf="behandelactiviteittype">
+    <bldc-input id="referentietype" readonly="true" bldcValue="{{behandelactiviteittype?.referentielijstomschrijving}}">
+      <span slot="label">Referentie behandelactiviteittype</span>
+    </bldc-input>
+    <bldc-input id="omschrijving" placeholder="" readonly="true" bldcValue="{{behandelactiviteittype?.omschrijving}}">
+      <span slot="label">Omschrijving</span>
+    </bldc-input>
+    <bldc-input id="toelichting" placeholder="" readonly="true" bldcValue="{{behandelactiviteittype?.toelichting}}">
+      <span slot="label">Toelichting</span>
+    </bldc-input>
+    <br>
+    <bldc-paragraph id="Versie datum" size="m" disableMargin="true"><b>Versie datum</b></bldc-paragraph>
+    <bldc-paragraph id="Versie datum value" size="s">{{behandelactiviteittype?.versiedatum ?? "Onbekend"}} </bldc-paragraph>
+
+  </div>
+</bldc-card>
+
+<!--      Expandable card section    -->
+<app-table-detail [title]="'Statustypes'" [listOfObjects]="behandelactiviteittype?.statustypes" [columns]="statusKolommen"
+                  numberOfColumns="four-column-width"></app-table-detail>
+<app-table-detail [title]="'Roltypes'" [listOfObjects]="behandelactiviteittype?.roltypes" [columns]="rolkolommen"
+                  numberOfColumns="two-column-width"></app-table-detail>
+<app-table-detail [title]="'Resultaattypes'" [listOfObjects]="behandelactiviteittype?.resultaattypes" [columns]="resultaatKolommen"
+                  numberOfColumns="one-column-width"></app-table-detail>
+<app-table-detail [title]="'Eigenschappen'" [listOfObjects]="behandelactiviteittype?.eigenschappen"
+                  [columns]="eigenschapKolommen" numberOfColumns="three-column-width"></app-table-detail>

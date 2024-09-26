@@ -1,0 +1,28 @@
+<form [formGroup]="form">
+  <bldc-grid fluid="true">
+    <bldc-grid-row container-columns="12" horizontalAlignment="center">
+      <bldc-grid-column col="4">
+        <bldc-notification type="error" *ngIf="message != null" elemTitle="Fout met aanmelden">
+          <bldc-paragraph disableMargin="true">
+            {{message}}
+          </bldc-paragraph>
+        </bldc-notification>
+      </bldc-grid-column>
+    </bldc-grid-row>
+    <bldc-grid-row container-columns="12" horizontalAlignment="center">
+      <bldc-grid-column col="4">
+        <bldc-input name="username" formControlName="username">
+          <span slot="label">Gebruikersnaam</span>
+        </bldc-input>
+        <bldc-input name="password" formControlName="password"
+                    inputType="password">
+          <span slot="label">Wachtwoord</span>
+        </bldc-input>
+        <div class="form-buttons">
+          <bldc-button type="primary" elemTitle="Aanmelden" icon="verzend" iconPos="right"
+                       (click)="login()" [disabled]="performingLogin"></bldc-button>
+        </div>
+      </bldc-grid-column>
+    </bldc-grid-row>
+  </bldc-grid>
+</form>

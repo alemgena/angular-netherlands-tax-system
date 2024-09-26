@@ -1,0 +1,8 @@
+<bldc-checkbox-group name="group2">
+  <span slot="legend">{{ field.name }}</span>
+  <label style="color: #696969" *ngIf="checkboxOptions.length == 0">Nog geen {{ field.name }} toegevoegd</label>
+  <bldc-checkbox *ngFor="let option of checkboxOptions" value="{{option.title}}"
+                 (bldcValueChange)="onCheckChange($event)"
+                 elemId="{{ formatInputId(option.title) }}">{{ option.value }}
+  </bldc-checkbox>
+</bldc-checkbox-group>

@@ -1,0 +1,69 @@
+<bldc-grid fluid="true" xmlns="http://www.w3.org/1999/html">
+  <bldc-grid-row containerColumns="12">
+    <bldc-grid-column col="2" padding="false" lg="2" md="1" sm="0.5" xs="0.5"></bldc-grid-column>
+    <bldc-grid-column col="8" padding="false" lg="8" md="10" sm="11" xs="11">
+      <bldc-heading level="1">
+        Eigenschap details
+      </bldc-heading>
+      <app-notification></app-notification>
+
+      <bldc-card type="content">
+        <div *ngIf="eigenschappen">
+          <form [formGroup]="eigenschappenForm">
+            <bldc-input [validators]="['minlen|1','maxlen|20']" inputType="string" name="naam" formControlName="naam"
+                        [(ngModel)]="eigenschappen.naam" elemId="naam-input">
+              <span slot="label">Naam</span>
+            </bldc-input>
+            <bldc-input [validators]="['minlen|1','maxlen|255']" formControlName="definitie" inputType="string"
+                        [(ngModel)]="eigenschappen.definitie" elemId="definitie-input">
+              <span slot="label">Definitie</span>
+            </bldc-input>
+            <div style="padding-bottom: 2rem">
+              <bldc-select-box [data]="formaatEnum" formControlName="formaat" [(ngModel)]="eigenschappen.formaat"
+                               elemId="formaat-input">
+                <span slot="label">Formaat</span>
+              </bldc-select-box>
+            </div>
+            <bldc-input [validators]="['minlen|1','maxlen|3', 'numbers']" formControlName="lengte" required="true"
+                        inputType="number" [(ngModel)]="eigenschappen.lengte" elemId="lengte-input">
+              <span slot="label">Lengte</span>
+            </bldc-input>
+            <bldc-input [validators]="['minlen|1','maxlen|3','numbers']" formControlName="kardinaliteit"
+                        inputType="number" [(ngModel)]="eigenschappen.kardinaliteit" elemId="kardinaliteit-input">
+              <span slot="label">Kardinaliteit</span>
+            </bldc-input>
+            <div *ngIf="eigenschappen.waardenverzameling.length > 0">
+              <div class="chip" *ngFor="let element of eigenschappen.waardenverzameling; let i = index">
+                <span *ngIf="element"> {{ element.waarde }} </span>
+                <button *ngIf="element" (click)="remove(i)">
+                  <svg class="icon"
+                       style="fill: rgb(1, 104, 155); height: 1rem; width: 1rem; display: flex; margin-left: 2px"
+                       viewBox="0 0 16 16">
+                    <path
+                      d="M9.78932 7.94983L13.1409 4.16477C13.4942 3.7674 13.4849 3.166 13.1209 2.77863C12.7342 2.41459 12.1335 2.40659 11.7348 2.75863L7.94987 6.11097L4.16496 2.75863C3.76761 2.40659 3.16623 2.41459 2.77888 2.77863C2.41485 3.166 2.40618 3.7674 2.75887 4.16477L6.11042 7.94983L2.75887 11.7349C2.40618 12.1329 2.41485 12.7343 2.77888 13.121C3.16623 13.4851 3.76761 13.4937 4.16496 13.1417L7.94987 9.78935L11.7348 13.141C12.1335 13.4937 12.7342 13.4851 13.1209 13.121C13.4849 12.7343 13.4942 12.1329 13.1409 11.7349L9.78932 7.94983Z"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </form>
+          <div class="flex-container">
+            <bldc-input required="false" class="flex-item" [validators]="['minlen|1','maxlen|20']" inputType="string"
+                        (ngModelChange)="updateWaardenverzameling($event)" [(ngModel)]="waardenverzameling"
+                        elemId="waardenverzameling-input">
+              <span slot="label">Waardenverzameling</span>
+            </bldc-input>
+            <bldc-button class="flex-item" style="margin-top: 2rem" slot="right" type="primary"
+                         (bldcClick)="addWaardenverzameling()" elem-title="Toevoegen"></bldc-button>
+          </div>
+
+        </div>
+      </bldc-card>
+      <bldc-buttonbar>
+        <bldc-button slot="right" type="primary" [disabled]="eigenschappenForm.invalid" (bldcClick)="save()"
+                     elem-title="Bewaar" icon="opslaan"
+                     icon-pos="left" iconPos="right"></bldc-button>
+      </bldc-buttonbar>
+    </bldc-grid-column>
+    <bldc-grid-column col="2" padding="false" lg="2" md="1" sm="0.5" xs="0.5"></bldc-grid-column>
+  </bldc-grid-row>
+</bldc-grid>

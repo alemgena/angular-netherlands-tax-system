@@ -1,0 +1,18 @@
+iac:
+  repository:
+    url: ssh://git@git.belastingdienst.nl:7999/zgw/zaaktypecatalogus.infra.git
+    ref: development
+    deleteFeatureBranch: false
+  chart:
+    contextDir: "charts/ui"
+    update: true
+    imageKey: ".image.repository"
+    shaKey: ".image.tag"
+
+source:
+  contextDir: '.'
+  dockerfile: './Dockerfile'
+  updateAppVersion: true
+  image:
+    name: zaaktypecatalogus-ui
+    repository: cir-cn.chp.belastingdienst.nl/zgw

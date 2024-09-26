@@ -1,0 +1,37 @@
+<div class="title-header">
+  <bldc-heading level="1">
+    Varianten
+  </bldc-heading>
+
+  <bldc-button class="button" (bldcClick)="showModal()" type="primary" elem-title="Toevoegen"></bldc-button>
+
+  <ng-container *ngIf="reset | async">
+  <app-variant-add-modal
+    [product]="product"
+    [state]="modalStates"
+    (updateVarianten)="updateVarianten($event)"></app-variant-add-modal>
+  </ng-container>
+
+  <ng-container>
+  </ng-container>
+</div>
+<table *ngIf="product" id="tableVariants" class="table zebra" aria-label="Zaken">
+  <thead>
+  <tr>
+    <th id="naam">Naam</th>
+    <th id="code">Code</th>
+    <th id="omschrijving">Omschrijving</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let pr of product.varianten">
+    <td class="row">{{pr.naam}}</td>
+    <td class="row">{{pr.code}}</td>
+    <td class="row">{{pr.omschrijving}}</td>
+  </tr>
+  </tbody>
+</table>
+
+<div *ngIf="!product || product.varianten.length === 0" class="container div">
+  <p class="no-data">Er zijn nog geen <b>Variants</b> toegevoegd. Voeg een of meerdere Variants toe.</p>
+</div>

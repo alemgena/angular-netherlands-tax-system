@@ -1,0 +1,48 @@
+<bldc-modal
+  title="Varianten"
+  id="modalId"
+  visible="{{ state }}"
+  dismissible="true"
+  close-on-escape="false"
+  header="Varianten"
+  buttons='[{"type":"secondary","label":"Afsluiten", "id":"2", "event":"close"}, {"type":"primary","label":"Toevoegen", "id":"1", "event":"confirm"}]'
+  modal-id="configureModal"
+  buttonHidden="{{ variantForm.invalid }}"
+  (bldcModalClose)="onClose()"
+  (bldcModalConfirm)="onConfirm()"
+>
+    <div *ngIf="variant">
+      <form [formGroup]="variantForm">
+        <bldc-input [validators]="['minlen|1','maxlen|20']" inputType="string"  formControlName="naam"
+                    [(ngModel)]="variant.naam">
+          <span slot="label">Naam</span>
+        </bldc-input>
+        <bldc-input [validators]="['minlen|1','maxlen|10']"  inputType="string" name="code" formControlName="code"
+                    [(ngModel)]="variant.code" elemId="code-input">
+          <span slot="label">Code</span>
+        </bldc-input>
+        <bldc-input [validators]="['maxlen|255']"  inputType="string" name="grondslag" formControlName="grondslag"
+                    [(ngModel)]="variant.grondslag" elemId="grondslag-input">
+          <span slot="label">Grondslag</span>
+        </bldc-input>
+        <bldc-input elemId="omschrijving-input" [validators]="['minlen|1','maxlen|255']"  inputType="string" name="omschrijving" formControlName="omschrijving"
+                    [(ngModel)]="variant.omschrijving" elemId="omschrijving-input">
+          <span slot="label">Omschrijving</span>
+        </bldc-input>
+        <bldc-input [validators]="['minlen|1','maxlen|3', 'numbers']" formControlName="serviceTermijn" required="true"
+                    inputType="number" [(ngModel)]="variant.serviceTermijn" elemId="serviceTermijn-input">
+          <span slot="label">Service Termijn</span>
+        </bldc-input>
+        <bldc-input [validators]="['minlen|1','maxlen|3','numbers']" formControlName="wettelijkeTermijn"
+                    inputType="number" [(ngModel)]="variant.wettelijkeTermijn" elemId="wettelijkeTermijn-input">
+          <span slot="label">Wettelijke Termijn</span>
+        </bldc-input>
+        <bldc-date-input (bldcValueChange)="onChange($event,'einddatumGeldigheid')" date-picker="true" input-type="string" readonly="true" formControlName="einddatumGeldigheid"   [(ngModel)]="variant.einddatumGeldigheid">
+          <span slot="label">Einddatum Geldigheid</span>
+        </bldc-date-input>
+        <bldc-date-input  date-picker="true"  readonly="true" input-type="string" (bldcValueChange)="onChange($event,'wijzigingsdatum')"  formControlName="wijzigingsdatum"  [(ngModel)]="variant.wijzigingsdatum">
+          <span slot="label">Wijzigingsdatum</span>
+        </bldc-date-input>
+      </form>
+    </div>
+</bldc-modal>
